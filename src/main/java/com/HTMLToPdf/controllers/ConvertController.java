@@ -29,7 +29,7 @@ public class ConvertController {
                 "Registro de Ponto",
                 "Segue registro de ponto em PDF",
                 pdf,
-                "registro");
+                "registro.pdf");
         return ResponseEntity.status(HttpStatus.OK).body("Arquivo convertido e enviado para: " + email);
     }
 }
