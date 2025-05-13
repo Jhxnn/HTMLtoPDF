@@ -21,7 +21,7 @@ public class ConvertController {
     @Autowired
     ConvertService convertService;
 
-    @GetMapping
+    @PostMapping
     public ResponseEntity<String> enviarEmail(@RequestParam("file") MultipartFile file,
                                               @RequestParam("email") String email) throws IOException {
         byte[] pdf = convertService.convertHtmlFileToPdf(file);
