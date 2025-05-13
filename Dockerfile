@@ -1,26 +1,15 @@
-# Usar uma imagem base do Maven e OpenJDK 17 para construir o JAR
-FROM maven:3.8.6-openjdk-17-slim AS build
+FROM ubuntu:latest AS build
 
-# Diretório de trabalho dentro do container
-WORKDIR /app
+RUN apt-get update
+RUN apt-get install openjdk-17-jdk -y
+COPY . .
 
-# Copiar o código fonte do projeto para o container
-COPY . /app
+RUN apt-get install maven -y
+RUN mvn clean install
 
-# Rodar o Maven para gerar o arquivo .jar
-RUN mvn clean package -DskipTests
+FROM openjdk:17-jdk-slim
 
-# Usar uma imagem base do OpenJDK 17 para rodar a aplicação
-FROM openjdk:17-jre-slim
-
-# Diretório de trabalho dentro do container
-WORKDIR /app
-
-# Copiar o JAR gerado do estágio de build para o container
-COPY --from=build /app/target/*.jar /app/app.jar
-
-# Expor a porta onde a aplicação vai rodar
 EXPOSE 8080
+COPY --from=build /target/HTMLToPdf-0.0.1-SNAPSHOT.jar app.jar
 
-# Comando para rodar a aplicação
-CMD ["java", "-jar", "/app/app.jar"]
+ENTRYPOINT ["java",  "-jar", "app.jar"]
