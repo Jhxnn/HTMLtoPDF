@@ -1,5 +1,5 @@
 # Usar uma imagem base do Maven para construir o JAR
-FROM maven:3.8.6-openjdk-11-slim AS build
+FROM maven:3.8.6-openjdk-17-slim AS build
 
 # Diretório de trabalho dentro do container
 WORKDIR /app
