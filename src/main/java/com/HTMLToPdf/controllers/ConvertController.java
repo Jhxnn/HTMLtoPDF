@@ -26,10 +26,10 @@ public class ConvertController {
                                               @RequestParam("email") String email) throws IOException {
         byte[] pdf = convertService.convertHtmlFileToPdf(file);
         emailService.enviarEmailComPdf(email,
-                "Registro de Ponto",
-                "Segue registro de ponto em PDF",
+                "Comprovante de Ponto",
+                "Segue comprovante de ponto em formato PDF",
                 pdf,
-                "registro.pdf");
+                "comprovante.pdf");
         return ResponseEntity.status(HttpStatus.OK).body("Arquivo convertido e enviado para: " + email);
     }
 }
